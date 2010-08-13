@@ -1,28 +1,29 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
-    <head>
-        <title>
-            AtomSuggest - Documentation
-        </title>
-        <meta http-equiv="Content-Language" content="fr" />
-        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<head>
+		<title>
+			AtomSuggest - Documentation
+		</title>
+		<meta http-equiv="Content-Language" content="fr" />
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 				<link href="http://alexgorbatchev.com/pub/sh/current/styles/shThemeDefault.css" rel="stylesheet" type="text/css" />
 				<link href="http://alexgorbatchev.com/pub/sh/current/styles/shCore.css" rel="stylesheet" type="text/css" />
 				<script src="http://alexgorbatchev.com/pub/sh/current/scripts/shCore.js" type="text/javascript"></script>
 				<script src="http://alexgorbatchev.com/pub/sh/current/scripts/shBrushXml.js" type="text/javascript"></script>
 				<script src="http://alexgorbatchev.com/pub/sh/current/scripts/shBrushJScript.js" type="text/javascript"></script>
-        <style type="text/css">
+		<style type="text/css">
 /*<![CDATA[*/
 				table.option { background-color: #EEEFF2; }
 				table.option th { border-bottom: 1px solid #B6BABA; }
 				p.remarque { font-style:italic;}
 				span.remarque {font-weight:bold;}
-        /*]]>*/
-        </style>
-    </head>
+				div#container {position:relative;margin-left:auto;margin-right:auto;width:960px;}
+		/*]]>*/
+		</style>
+	</head>
 		<body>
-		<div>
+		<div id="container">
 						<h1>
 						AtomSuggest
 						</h1>
@@ -91,26 +92,22 @@
 						</p>
 
 						<pre class="brush:js">
-	 $(document).ready(function()
-		{
-		var options =   
-		 {
-				"url": "http://localhost/testSuggestTermSciences/tsproxy.php",
-				"widthFactor": 2.5,
-				"showInfos" :  { "identifier" : true, "updated" : true, "content": true", "result" : true },
-				"paramValue": "query", 
-				"extraParams":  { "ws": "search", "alt": "json", "lang": function() { return $("#lng").val() } },
-				onSelect: function(entry) { alert(entry.id.value); $('#searchform').submit();}
-		 }
-
-		$("#searchform input[name='qry']").atomsuggest(options) 
-		}
+$(document).ready(function() {
+    var options = {
+        "url": "http://localhost/testSuggestTermSciences/tsproxy.php",
+        "widthFactor": 2.5,
+        "showInfos" :  { "identifier" : true, "updated" : true, "content": true", "result" : true },
+        "paramValue": "query", 
+        "extraParams":  { "ws": "search", "alt": "json", "lang": function() { return $("#lng").val() } },
+        onSelect: function(entry) { alert(entry.id.value); $('#searchform').submit();}
+    }
+    $("#searchform input[name='qry']").atomsuggest(options) ;
+}
 						</pre>
 						<p>
 								Ce plugin gère uniquement les sources de données au format JSON et XML Atom.
 						</p>
 						<p class="remarque">
-
 								<span class="remarque">REMARQUE :</span> Les options précédées par un point noir sont le minimum
 								permettant le fonctionnement du plugin.
 						</p>
@@ -120,7 +117,6 @@
 						<table class="option">
 								<tr>
 										<th>
-
 												Nom de l'option
 										</th>
 										<th>
@@ -131,7 +127,6 @@
 										<td class="nom">
 												"url"
 										</td>
-
 										<td>
 												Chemin de votre script proxy.
 										</td>
@@ -144,7 +139,6 @@
 												Multiplicateur de la largeur de l'élément regroupant les suggestions. Par défaut la largeur
 												correspond à la largeur de l'input concerné, le multiplicateur vaut donc 1.
 										</td>
-
 								</tr>
 								<tr>
 										<td class="nom">
@@ -156,7 +150,6 @@
 												du terme; <b>"result"</b>: nombre de résultat répondant à la saisie). Par défaut ces
 												informations ne sont pas affichées.
 										</td>
-
 								</tr>
 								<tr>
 										<td class="nom">
@@ -167,7 +160,6 @@
 												nom du paramètre du web service utilisé permettant de récupérer les données répondant à la
 												saisie).
 										</td>
-
 								</tr>
 								<tr>
 										<td class="nom">
@@ -179,7 +171,6 @@
 										</td>
 								</tr>
 								<tr>
-
 										<td class="nom">
 												"onSelect"
 										</td>
@@ -189,7 +180,6 @@
 										</td>
 								</tr>
 								<tr>
-
 										<td class="nom">
 												"onRequest"
 										</td>
@@ -222,7 +212,7 @@ $("#searchform input[name='qry']").atomsuggest(options)
 						page Web ainsi qu'un identifiant caractérisant votre "input".
 						</p>
 						<h2>
-								Exemples
+							Exemples
 						</h2>
 
 						<p>
@@ -234,15 +224,15 @@ $("#searchform input[name='qry']").atomsuggest(options)
 						Voici quelques exemples :
 						</p>
 						<ul>
-								<li><a href="exemples/blogsearch/">Google Blog Search</a></li>
-								<li><a href="exemples/codesearch/">Google Code Search</a></li>
-								<li><a href="exemples/newssearch/">Google News</a></li>
-								<li><a href="exemples/picasaweb/">Picasweb</a></li>
-								<li><a href="exemples/termsciences/">TermSciences</a></li>
+							<li><a href="exemples/blogsearch/">Google Blog Search</a></li>
+							<li><a href="exemples/codesearch/">Google Code Search</a></li>
+							<li><a href="exemples/newssearch/">Google News</a></li>
+							<li><a href="exemples/picasaweb/">Picasweb</a></li>
+							<li><a href="exemples/termsciences/">TermSciences</a></li>
 						</ul>
 						<script type='text/javascript'>
-								SyntaxHighlighter.all();
-						</script>
-				</div>
-				</body>
-		</html>
+							SyntaxHighlighter.all();
+							</script>
+						</div>
+					</body>
+				</html>
