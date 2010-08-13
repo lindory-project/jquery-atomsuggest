@@ -1,0 +1,31 @@
+div.atomsuggest
+{
+	background-color: white;
+}
+
+div.atomsuggest p.headline
+{
+	color: #194266;
+}
+
+div.atomsuggest  span.highlight
+{
+	color: red;
+}
+
+div.atomsuggest div.result
+{
+	background: url(../img/fondResult.jpg);
+}
+
+div.atomsuggest div.divselector
+{
+	background-color: #DDEAF4; 
+	color: #4E5050 ! important; 
+}
+
+
+
+
+
+

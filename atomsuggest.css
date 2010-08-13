@@ -1,0 +1,69 @@
+div.atomsuggest
+{
+	position: absolute;
+	visibility: hidden;
+	font-size: 0.7em; 
+	word-wrap: break-word;
+	border-left: #7D8182 1px solid;
+	border-top: #7D8182 1px solid;
+	border-right: #7D8182 1px solid;
+	border-bottom: #7D8182 1px solid;
+}
+
+div.atomsuggest div.hentry
+{
+	display: block; 
+	overflow: hidden; 
+	padding: 3px;
+	text-align: left;
+	width: 100%;
+}
+
+div.atomsuggest p
+{
+	font-size: 0.9em;
+	margin: 0;	
+}
+
+div.atomsuggest p.headline
+{
+	font-size: 1em;
+	text-decoration: underline;
+	font-weight: bold;
+}
+
+div.atomsuggest p.identifier
+{
+	font-size: 1em;
+	font-weight: bold;
+}
+
+div.atomsuggest p.updated
+{
+	font-style:italic;
+}
+
+div.atomsuggest div.result
+{
+	border-top: #7D8182 1px solid;
+	height: 20px;
+	text-align: center;
+	padding: 2px;
+}
+
+div.atomsuggest div.result span
+{
+	font-weight: bold;
+}
+
+div.atomsuggest div.divselector
+{
+	padding: 3px;
+	text-align: left;
+	cursor: pointer;
+	width: 100%;
+}
+
+
+
+
