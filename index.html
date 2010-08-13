@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
 	<head>
 		<title>
@@ -7,234 +7,199 @@
 		</title>
 		<meta http-equiv="Content-Language" content="fr" />
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-				<link href="http://alexgorbatchev.com/pub/sh/current/styles/shThemeDefault.css" rel="stylesheet" type="text/css" />
-				<link href="http://alexgorbatchev.com/pub/sh/current/styles/shCore.css" rel="stylesheet" type="text/css" />
-				<script src="http://alexgorbatchev.com/pub/sh/current/scripts/shCore.js" type="text/javascript"></script>
-				<script src="http://alexgorbatchev.com/pub/sh/current/scripts/shBrushXml.js" type="text/javascript"></script>
-				<script src="http://alexgorbatchev.com/pub/sh/current/scripts/shBrushJScript.js" type="text/javascript"></script>
+		<link href="http://alexgorbatchev.com/pub/sh/current/styles/shThemeDefault.css" rel="stylesheet" type="text/css" />
+		<link href="http://alexgorbatchev.com/pub/sh/current/styles/shCore.css" rel="stylesheet" type="text/css" />
+		<script src="http://alexgorbatchev.com/pub/sh/current/scripts/shCore.js" type="text/javascript"></script>
+		<script src="http://alexgorbatchev.com/pub/sh/current/scripts/shBrushXml.js" type="text/javascript"></script>
+		<script src="http://alexgorbatchev.com/pub/sh/current/scripts/shBrushJScript.js" type="text/javascript"></script>
 		<style type="text/css">
-/*<![CDATA[*/
-				table.option { background-color: #EEEFF2; }
-				table.option th { border-bottom: 1px solid #B6BABA; }
-				p.remarque { font-style:italic;}
-				span.remarque {font-weight:bold;}
-				div#container {position:relative;margin-left:auto;margin-right:auto;width:960px;}
-		/*]]>*/
+			/*<![CDATA[*/
+			table.option { background-color: #EEEFF2; }
+			table.option th { border-bottom: 1px solid #B6BABA; }
+			p.remarque { font-style:italic;}
+			span.remarque {font-weight:bold;}
+			div#container {position:relative;margin-left:auto;margin-right:auto;width:960px;}
+			img#zip { border:none; float:left;}
+			/*]]>*/
 		</style>
 	</head>
-		<body>
+	<body>
 		<div id="container">
-						<h1>
-						AtomSuggest
-						</h1>
-						<p>
-						 Aide à la saisie à partir d'un flux ATOM/OpenSearch
-						</p>
+			<h1>
+				AtomSuggest
+			</h1>
+			<p>
+				Plugin Jquery d'aide à la saisie à partir d'un flux ATOM/OpenSearch
+			</p>
+			<h2> 
+				Téléchargement 
+			</h2>
+			<p>
+				Le plugin est disponible sous forme d'une archive compressée  
+				<a href="http://github.com/touv/atomsuggest/zipball/master"><img 
+						id="zip"
+						alt="Download Zip" src="http://github.com/images/modules/download/zip.png"
+						/>
+				</a>.
+				<br/>
+				<br/>
+				La librairie Javascript JQuery est téléchargeable sur <a href="http://jquery.com">le site officiel de JQuery</a>.						
+			</p>
+			<br style="clear:both;"/>
+			<h2>
+				Installation
+			</h2>
+			<h3>
+				Première étape
+			</h3>
+			<p>
+				Inclure le fichier <tt>jquery.js</tt> dans l'élément "head" de votre page Web, suivit par le fichier <tt>atomsuggest.js</tt>.
+			</p>
+			<pre class="brush:html">
+				&lt;script type="text/javascript" src="jquery.js"&gt;&lt;/script&gt;
+				&lt;script type="text/javascript" src="atomsuggest.js"&gt;&lt;/script&gt;
+			</pre>
+			<h3>
+				Deuxième étape
+			</h3>
+			<p>
+				Inclure les fichiers CSS dans votre page Web. Il y en a deux :
+			</p>
+			<ul>
+				<li>
+					<tt>atomsuggest.grey.css</tt> qui gère les couleurs du plugin. <strong>Ce fichier peut être modifié à souhait.</strong>
+				</li>
+				<li>
+					<tt>atomsuggest.css</tt> qui gère toute la structure du plugin (écriture, taille, dimmensions,	marges, etc.).
+				</li>
+			</ul>
+			<pre class="brush:html">
+				&lt;link rel="stylesheet" type="text/css" href="style/atomsuggest.css" /&gt;
+				&lt;link rel="stylesheet" type="text/css" href="style/atomsuggest.grey.css" /&gt;
+			</pre>
+			<h3>
+				Troisième étape
+			</h3>
+			<p>
+				Paramètrer le plugin et le brancher le plugin sur le champ à auto-compléter. 
+			</p>
+			<pre class="brush:js">
+				$(document).ready(function() {
+					var options = {
+						"url": "http://localhost/testSuggestTermSciences/tsproxy.php",
+						"widthFactor": 2.5,
+						"showInfos" :  { "identifier" : true, "updated" : true, "content": true", "result" : true },
+						"paramValue": "query", 
+						"extraParams":  { "ws": "search", "alt": "json", "lang": function() { return $("#lng").val() } },
+						onSelect: function(entry) { 
+							alert(entry.id.value); $('#searchform').submit();
+						}
+					}
+					$("#searchform input[name='qry']").atomsuggest(options) ;
+					}
+			</pre>
+			<h2>
+				Paramètres 
+			</h2>
+			<h3>
+				Format
+			</h3>
+			<p>
+				Le flux Atom/Openseach doit être "Jsonifié" façon Google. Google propose cette Jsonification via son protocole GData. (cf .
+				<a href="http://code.google.com/apis/gdata/docs/json.html">Using JSON in the Google Data Protocol</a>).<br/>
+				Pour les flux Atom non disponibles au format Json, il faut transformer le XML en JSON avec cette feuille de style XSL : <a href="http://github.com/touv/atomsuggest/raw/master/xsl/xml2json.xsl">xml2json</a>.
+			</p>
+			<h3>
+				Options
+			</h3>
+			<table class="option">
+				<tr>
+					<th>
+						Option
+					</th>
+					<th>
+						Description
+					</th>
+				</tr>
+				<tr>
+					<td class="nom">
+						"url" 
+					</td>
+					<td>
+						URL du flux. 
+					</td>
+				</tr>
+				<tr>
+					<td class="nom">
+						"widthFactor"
+					</td>
+					<td>
+						Multiplicateur de la largeur de l'élément regroupant les suggestions. Par défaut la largeur
+						correspond à la largeur de l'input concerné, le multiplicateur vaut donc 1.
+					</td>
+				</tr>
+				<tr>
+					<td class="nom">
+						"showInfos"
+					</td>
+					<td>
+						Permet de configurer des éléments supplémentaires à afficher ( <b>"identifier"</b>: identifiant
+						de chaque terme; <b>"updated"</b>: date de dernière modification; <b>"content"</b>: description
+						du terme; <b>"result"</b>: nombre de résultat répondant à la saisie). Par défaut ces
+						informations ne sont pas affichées.
+					</td>
+				</tr>
+				<tr>
+					<td class="nom">
+						"paramValue"
+					</td>
+					<td>
+						Nom du paramètre qui contiendra la valeur saisie (dans l'exemple, <b>"query"</b> correspond au
+						nom du paramètre du web service utilisé permettant de récupérer les données répondant à la
+						saisie).
+					</td>
+				</tr>
+				<tr>
+					<td class="nom">
+						"extraParams"
+					</td>
+					<td>
+						Ses valeurs correspondent aux paramètres concernant les web services alimentants le plugin. A
+						gauche, le nom du paramètre et à droite, sa valeur.
+					</td>
+				</tr>
+				<tr>
+					<td class="nom">
+						"onSelect"
+					</td>
+					<td>
+						CallBack sur l'élément sélectionné. Elle permet notamment de poursuivre des traitements sur
+						l'élément sélectionné.
+					</td>
+				</tr>
+				<tr>
+					<td class="nom">
+						"onRequest"
+					</td>
+					<td>
+						CallBack sur les caractères saisies. Elle permet de modifier la requete juste avant d'envoyé la requete au serveur.
+					</td>
+				</tr>
+			</table>
+			<h2>
+				Flux externes
+			</h2>
+			<p>
+				Pour de bonne performance le plugin utilise des appels AJAX "classiques" donc obligatoirement vers le site qui a envoyé la page HTML.
+				Pour brancher le script sur flux externes à la page, il est nécessaire de passer par un proxy. <br/><br/>
+				Un exemple de proxy pour Google écrit en PHP 
+				est disponible dans ce répertoire : <a href="http://github.com/touv/atomsuggest/tree/master/proxy">http://github.com/touv/atomsuggest/tree/master/proxy/</a>
+			</p>
 
-						<h2>
-								Installation
-						</h2>
-						<p>
-								Ce plugin requis la librairie Javascript JQuery. Vous pouvez la télécharger sur <a href=
-								"http://jquery.com">le site officiel de JQuery</a>.
-						</p>
-						<h3>
-								Première étape
-						</h3>
-
-						<p>
-								La première étape consiste à inclure le fichier jquery.js dans l'élément "head" de votre page Web,
-								suivit par le fichier jquery.atomsuggest.js.
-						</p>
-						<p class="remarque">
-								<span class="remarque">REMARQUE:</span> Le fichier jquery.js doit se placer en premier dans l'ordre des
-								références aux ressources externes.
-						</p>
-
-						<pre class="brush:html">
-&lt;script type="text/javascript" src="jquery.js"&gt;&lt;/script&gt;
-&lt;script type="text/javascript" src="jquery.atomsuggest.js"&gt;&lt;/script&gt;
-						</pre>
-						<h3>
-								Deuxième étape
-						</h3>
-						<p>
-								La deuxième étape consiste à inclure les fichiers CSS dans votre page Web. Il y en a deux :
-						</p>
-						<ul>
-
-								<li>atomsuggest.grey.css qui gère les couleurs du plugin.
-								</li>
-								<li>atomsuggest.css qui gère toute la structure du plugin (écriture, taille, dimmensions,
-								marges, etc.).
-								</li>
-						</ul>
-						<p>
-						Il vous suffit d'inclure ces fichiers dans le "head" de votre page Web, comme dans l'exemple suivant :
-						</p>
-
-						<pre class="brush:html">
-&lt;link rel="stylesheet" type="text/css" href="style/atomsuggest.css" /&gt;
-&lt;link rel="stylesheet" type="text/css" href="style/atomsuggest.grey.css" /&gt;
-						</pre>
-
-						<p class="remarque">
-								<span class="remarque">REMARQUE:</span> Vous pouvez modifier les règles css selon votre convenance
-								(couleur, police, etc.).
-						</p>
-						<h3>
-								Troisième étape
-						</h3>
-						<p>
-								La dernière étape d'installation consiste à implanter dans votre page un script JavaScript permettant
-								de définir des options personnalisant le plugin, et d'indiquer le champ à auto-compléter. Ce script
-								doit être placé dans la partie "head".
-						</p>
-
-						<pre class="brush:js">
-$(document).ready(function() {
-    var options = {
-        "url": "http://localhost/testSuggestTermSciences/tsproxy.php",
-        "widthFactor": 2.5,
-        "showInfos" :  { "identifier" : true, "updated" : true, "content": true", "result" : true },
-        "paramValue": "query", 
-        "extraParams":  { "ws": "search", "alt": "json", "lang": function() { return $("#lng").val() } },
-        onSelect: function(entry) { alert(entry.id.value); $('#searchform').submit();}
-    }
-    $("#searchform input[name='qry']").atomsuggest(options) ;
-}
-						</pre>
-						<p>
-								Ce plugin gère uniquement les sources de données au format JSON et XML Atom.
-						</p>
-						<p class="remarque">
-								<span class="remarque">REMARQUE :</span> Les options précédées par un point noir sont le minimum
-								permettant le fonctionnement du plugin.
-						</p>
-						<p>
-								<i>Signification des options :</i>
-						</p>
-						<table class="option">
-								<tr>
-										<th>
-												Nom de l'option
-										</th>
-										<th>
-												Signification
-										</th>
-								</tr>
-								<tr>
-										<td class="nom">
-												"url"
-										</td>
-										<td>
-												Chemin de votre script proxy.
-										</td>
-								</tr>
-								<tr>
-										<td class="nom">
-												"widthFactor"
-										</td>
-										<td>
-												Multiplicateur de la largeur de l'élément regroupant les suggestions. Par défaut la largeur
-												correspond à la largeur de l'input concerné, le multiplicateur vaut donc 1.
-										</td>
-								</tr>
-								<tr>
-										<td class="nom">
-												"showInfos"
-										</td>
-										<td>
-												Permet de configurer des éléments supplémentaires à afficher ( <b>"identifier"</b>: identifiant
-												de chaque terme; <b>"updated"</b>: date de dernière modification; <b>"content"</b>: description
-												du terme; <b>"result"</b>: nombre de résultat répondant à la saisie). Par défaut ces
-												informations ne sont pas affichées.
-										</td>
-								</tr>
-								<tr>
-										<td class="nom">
-												"paramValue"
-										</td>
-										<td>
-												Nom du paramètre qui contiendra la valeur saisie (dans l'exemple, <b>"query"</b> correspond au
-												nom du paramètre du web service utilisé permettant de récupérer les données répondant à la
-												saisie).
-										</td>
-								</tr>
-								<tr>
-										<td class="nom">
-												"extraParams"
-										</td>
-										<td>
-												Ses valeurs correspondent aux paramètres concernant les web services alimentants le plugin. A
-												gauche, le nom du paramètre et à droite, sa valeur.
-										</td>
-								</tr>
-								<tr>
-										<td class="nom">
-												"onSelect"
-										</td>
-										<td>
-												CallBack sur l'élément sélectionné. Elle permet notamment de poursuivre des traitements sur
-												l'élément sélectionné.
-										</td>
-								</tr>
-								<tr>
-										<td class="nom">
-												"onRequest"
-										</td>
-										<td>
-												CallBack sur les caractères saisies. Elle permet de modifier la requete juste avant d'envoyé la requete au serveur.
-										</td>
-								</tr>
-						</table>
-
-						<pre class="brush:js">
-$("#qry").atomsuggest(options)
-						</pre>
-
-						<p>
-								Cette ligne de code permet d'appeler tout le traitement permettant l'auto-complétion. Il vous faut
-								indiquer en sélecteur l'identifiant du champ "input" à auto-compléter. Dans l'exemple l'identifiant est
-								<b>"qry"</b>
-						</p>
-						<p>
-								Vous pouvez également indiquer en paramètre le nom de votre "input". Dans l'exemple le nom du champ est
-								<b>"qry"</b>
-						</p>
-
-						<pre class="brush:js">
-$("#searchform input[name='qry']").atomsuggest(options)
-						</pre>
-
-						<p class="remarque">
-						<span class="remarque">REMARQUE :</span> Il vous faut donc impérativement un élément "input" dans votre
-						page Web ainsi qu'un identifiant caractérisant votre "input".
-						</p>
-						<h2>
-							Exemples
-						</h2>
-
-						<p>
-						L'utilisation est très simple, une fois votre plugin branché sur votre champ texte, il suffit de saisir
-						des informations et vous verrez la liste des suggestions apparaitre automatiquement en fonction de
-						votre saisie. 
-						</p>
-						<!--
-						<p>
-						Voici quelques exemples :
-						</p>
-						<ul>
-							<li><a href="exemples/blogsearch/">Google Blog Search</a></li>
-							<li><a href="exemples/codesearch/">Google Code Search</a></li>
-							<li><a href="exemples/newssearch/">Google News</a></li>
-							<li><a href="exemples/picasaweb/">Picasweb</a></li>
-							<li><a href="exemples/termsciences/">TermSciences</a></li>
-						</ul>
-						-->
-						<script type='text/javascript'>
-							SyntaxHighlighter.all();
-							</script>
-						</div>
-					</body>
-				</html>
+			<script type='text/javascript'>
+				SyntaxHighlighter.defaults['toolbar'] = false;
+				SyntaxHighlighter.all();
+			</script>
+		</div>
+	</body>
+</html>
