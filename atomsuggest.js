@@ -9,6 +9,7 @@
 (function($) {
 			$.fn.atomsuggest = function(options) {
 
+
 				function highlight(saisie)
 				{
 						$("div.hentry p.headline, div.hentry p.content, div.divselector p.headline, div.divselector p.content", _AS_context).each( function() {
@@ -48,7 +49,7 @@
 								return $("<p>").addClass("content").html(valof(content));
 						else
 								return $("<p>").addClass("content").text(valof(content));
-					}
+				}
 
 				function entry2div(entry)
 				{
@@ -69,10 +70,11 @@
 					}
 					div.mousedown(function () {
 									$(_AS_inputField).attr("value", $(this).find("p.headline").text());
-
-									if (typeof(_AS_options.onSelect) == "function") {
+									if (typeof(_AS_options.onSelect) == "function") 
 										_AS_options.onSelect(entry);
-									}
+									$(_AS_context).hide();
+									while($(" > *", _AS_context).length>0) $(_AS_context).empty();
+									$(_AS_inputField).focus();
 									});
 					div.mouseover(function() {
 									if(_highlightedSuggestionDiv) {
@@ -86,6 +88,7 @@
 					return div;
 				}
 
+		
 				var _AS_options      = $.extend( {
 						"url": "",
 						"widthFactor": 1,
@@ -122,7 +125,7 @@
 						$(_AS_context).css("top", parseInt($(_AS_inputField).offset().top)+parseInt($(_AS_inputField).css("height"))+7+"px");
   			}
 
-				var _AS_currentValue = $(_AS_inputField).attr("value");
+			var _AS_currentValue = $(_AS_inputField).attr("value");
   			var _AS_lastValue = _AS_currentValue;
 
 				$(document).keydown( function (event) {
@@ -135,7 +138,23 @@
 						}
   			});
 
+				$(_AS_inputField).keypress( function(event) {
+						if(event.keyCode == 13 ) {
+						var c = $(" > *", _AS_context).length;
+
+							if (typeof(_AS_options.onSelect) == "function" &&  typeof(_AS_lastResponse.feed.entry[_highlightedSuggestionIndex]) != 'undefined')
+								_AS_options.onSelect(_AS_lastResponse.feed.entry[_highlightedSuggestionIndex]);
+
+							while($(" > *", _AS_context).length>0) $(_AS_context).empty();
+							$(_AS_context).hide();
+
+							
+							return c == 0 ? true : false;
+						}
+				});
 				$(_AS_inputField).keyup( function(event) {
+						if(event.keyCode == 13 ) return true;
+
 						setTimeout( function() {
 								if(_AS_lastValue != _AS_currentValue && _AS_currentValue.length >= _AS_options.triggerLength) {
 									var parameters   = new Object();
@@ -147,7 +166,7 @@
 									}
 
 									$.ajaxSetup({"error":function(XMLHttpRequest,textStatus, errorThrown) {
-										while($(" > *", _AS_context).length>0) $(_AS_context).empty();
+										$(_AS_context).hide();
 										//                         alert(textStatus);
 										//                         alert(errorThrown);
 										//                         alert(XMLHttpRequest.responseText);
@@ -156,6 +175,8 @@
 										_AS_lastCall = $.getJSON( uget(_AS_options.url), parameters, function (jsondata) {
 														_AS_lastResponse = jsondata;
 														while($(" > *", _AS_context).length>0) $(_AS_context).empty();
+														$(_AS_context).show();
+
 
 														if (_AS_lastResponse.feed.entry) {
 																if (_AS_lastResponse.feed.entry[0])
@@ -202,26 +223,23 @@
 
 						// Dans les cas touches touche haute(38) ou touche basse (40)
 						// on autorise le blur du champ (traitement dans onblur)
-						if(_eventKeycode == 40 || _eventKeycode == 38) {
+						if (event.keyCode == 40 || event.keyCode == 38) {
 								$(_AS_inputField).blur();
 								$(_AS_inputField).focus();
 						}
 
-						// si la touche n'est ni haut, ni bas, on stocke la valeur utilisateur du champ
-					
-						if(_eventKeycode != 40 && _eventKeycode != 38)
-  						_AS_currentValue = $(_AS_inputField).attr("value");
+						if (event.keyCode != 40 && event.keyCode != 38) {
+							_AS_currentValue = $(_AS_inputField).attr("value");
+						}
 
-						if(_eventKeycode == 40) {
+
+						if(event.keyCode == 40) {
 								highlightNewValue(_highlightedSuggestionIndex+1, _AS_context, _AS_inputField);
 						}
-						else if(_eventKeycode == 38) {
+						else if(event.keyCode == 38) {
 								highlightNewValue(_highlightedSuggestionIndex-1, _AS_context, _AS_inputField);
 						}
-						else if( (_eventKeycode == 13 || _eventKeycode==3) && typeof(_AS_options.onSelect) == "function" &&  typeof(_AS_lastResponse.feed.entry[_highlightedSuggestionIndex]) != 'undefined') {
-								_AS_options.onSelect(_AS_lastResponse.feed.entry[_highlightedSuggestionIndex]);
-						}
-						else if(_eventKeycode != 0) {
+						else if(event.keyCode != 0) {
 								PressAction(_AS_context, _AS_inputField, _AS_currentValue);
 						}
 						
@@ -259,13 +277,11 @@
 		suggestDivDivList=suggestionList;
 
 		// si le champ est vide, on cache les propositions de complétion
-		if(_AS_currentValue==""||suggestDivRows==0)
-		{
+		if(_AS_currentValue==""||suggestDivRows==0) {
 				$(_AS_context).css("visibility", "hidden");
-		}else
-		{
-				$(_AS_context).css("visibility", "visible");
-
+		}
+		else {
+			$(_AS_context).css("visibility", "visible");
 		}
 		var trouve=false;
 		// si on a du texte sur lequel travailler
