@@ -18,14 +18,8 @@ div.atomsuggest div.result
 	background: url(../img/fondResult.jpg);
 }
 
-div.atomsuggest div.divselector
+div.atomsuggest div.divselector, div.atomsuggest div.selected
 {
 	background-color: #DDEAF4; 
 	color: #4E5050 ! important; 
 }
-
-
-
-
-
-
