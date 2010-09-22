@@ -53,12 +53,6 @@
 						}
 				});
 			}
-			function wget() {
-				if (_AS_options.widthFactor)
-					return $(_AS_inputField).outerWidth()*_AS_options.widthFactor+"px";
-				else
-					return $(_AS_inputField).outerWidth()+"px";
-			}
 
 			function uget(v) 
 			{
@@ -143,7 +137,12 @@
 					top: $(_AS_inputField).offset().top +$(_AS_inputField).height()+7+"px",
 					left: $(_AS_inputField).offset().left +"px" 
 			})
-			.width(wget())
+			.width(function(){
+				if (_AS_options.widthFactor)
+					return $(_AS_inputField).outerWidth()*_AS_options.widthFactor+"px";
+				else
+					return $(_AS_inputField).outerWidth()+"px";
+			})
 			.appendTo(_AS_inputField.parent());
 
 
@@ -165,7 +164,6 @@
 			$(_AS_inputField).keypress( function(event) {
 					if(event.keyCode == 13 ) {
 						var l = $(" > *", _AS_context).length;
-						var c = $(" > div.selected", _AS_context);
 
 						if (typeof(_AS_options.onSelect) == "function")
 							_AS_options.onSelect(_AS_lastResponse.feed.entry[$(" > div.selected", _AS_context).index()]);
@@ -175,25 +173,29 @@
 
 						return l == 0 ? true : false;
 					}
-					else if (event.keyCode == 40 ) { // En bas
+			});
+			$(_AS_inputField).keyup( function(event) {
+
+					if (event.keyCode == 40 ) { // En bas
 						var c = $(" > div.selected", _AS_context);
 						var n = $(" > div.selected + div.hentry:first", _AS_context);
 						chooser(c,n);
+						return true;
 					}
 					else if (event.keyCode == 38 ) { // En haut
 						var c = $(" > div.selected", _AS_context);
 						var n = c.prev();
 						chooser(c,n);
+						return true;
 					}
 					else if (event.keyCode == 27 ) { // Échappe
 						while($(" > *", _AS_context).length>0) $(_AS_context).empty();
 						$(_AS_context).hide();
+						return true;
 					}
-			});
-			$(_AS_inputField).keyup( function(event) {
-
-
-					if(event.keyCode == 13 || event.keyCode == 40 || event.keyCode == 38 || event.keyCode == 27) return true;
+					else if (event.keyCode == 13 ) {
+						return true;
+					}
 
 					if(_AS_currentValue != $(_AS_inputField).val() && $(_AS_inputField).val().length >= _AS_options.triggerLength) {
 						_AS_currentValue = $(_AS_inputField).val();
