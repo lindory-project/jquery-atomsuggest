@@ -53,6 +53,12 @@
 						}
 				});
 			}
+			function wget() {
+				if (_AS_options.widthFactor)
+					return $(_AS_inputField).outerWidth()*_AS_options.widthFactor+"px";
+				else
+					return $(_AS_inputField).outerWidth()+"px";
+			}
 
 			function uget(v) 
 			{
@@ -79,7 +85,8 @@
 
 			function entry2div(entry)
 			{
-				var div = $("<div>").addClass("hentry");
+				var div = $("<div>").addClass("hentry").width(function() {return $(_AS_context).innerWidth();})
+
 
 				$("<p>").addClass("headline").append(valof(entry.title)).appendTo(div);
 				if (_AS_options.showInfos.identifier && entry.id)
@@ -126,6 +133,7 @@
 				}, options);
 			var _AS_inputField   = $(this).attr("autocomplete", "off");
 			var _AS_lastCall;
+			var _AS_lastResponse;
 			var _AS_currentValue = "";
 			var _AS_context      = $("<div>")
 			.hide()
@@ -135,13 +143,9 @@
 					top: $(_AS_inputField).offset().top +$(_AS_inputField).height()+7+"px",
 					left: $(_AS_inputField).offset().left +"px" 
 			})
-			.width(function() {
-					if (_AS_options.widthFactor)
-						return $(_AS_inputField).width()*_AS_options.widthFactor+"px";
-					else
-						return $(_AS_inputField).width()+"px";
-			})
+			.width(wget())
 			.appendTo(_AS_inputField.parent());
+
 
 			if($.browser.opera) {
 				$(_AS_context).css("width", parseInt($(_AS_inputField).css("width"))*parseInt(_AS_options.widthFactor)+"px");
@@ -160,15 +164,16 @@
 
 			$(_AS_inputField).keypress( function(event) {
 					if(event.keyCode == 13 ) {
-						var r = $(" > *", _AS_context).length == 0 ? true :false;
+						var l = $(" > *", _AS_context).length;
+						var c = $(" > div.selected", _AS_context);
 
 						if (typeof(_AS_options.onSelect) == "function")
-							_AS_options.onSelect($(" > div.selected", _AS_context).text());
+							_AS_options.onSelect(_AS_lastResponse.feed.entry[$(" > div.selected", _AS_context).index()]);
 
 						while($(" > *", _AS_context).length>0) $(_AS_context).empty();
 						$(_AS_context).hide();
 
-						return r;
+						return l == 0 ? true : false;
 					}
 					else if (event.keyCode == 40 ) { // En bas
 						var c = $(" > div.selected", _AS_context);
@@ -203,6 +208,7 @@
 						}
 
 						_AS_lastCall = $.getJSON( uget(_AS_options.url), parameters, function (jsonResponse) {
+								_AS_lastResponse = jsonResponse;
 								while($(" > *", _AS_context).length>0) $(_AS_context).empty();
 								$(_AS_context).show();
 

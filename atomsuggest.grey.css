@@ -1,6 +1,7 @@
 div.atomsuggest
 {
 	background-color: white;
+	border: #7D8182 1px solid;
 }
 
 div.atomsuggest p.headline
@@ -18,7 +19,7 @@ div.atomsuggest div.result
 	background: url(../img/fondResult.jpg);
 }
 
-div.atomsuggest div.divselector, div.atomsuggest div.selected
+div.atomsuggest div.selected
 {
 	background-color: #DDEAF4; 
 	color: #4E5050 ! important; 

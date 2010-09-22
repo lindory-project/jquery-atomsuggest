@@ -3,25 +3,24 @@ div.atomsuggest
 	position: absolute;
 	font-size: 0.7em; 
 	word-wrap: break-word;
-	border-left: #7D8182 1px solid;
-	border-top: #7D8182 1px solid;
-	border-right: #7D8182 1px solid;
-	border-bottom: #7D8182 1px solid;
+	padding: 0px;
+	margin: 0px;
 }
 
 div.atomsuggest div.hentry
 {
 	display: block; 
 	overflow: hidden; 
-	padding: 3px;
+	padding: 0px;
+	margin: 0px;
 	text-align: left;
-	width: 100%;
 }
 
 div.atomsuggest p
 {
 	font-size: 0.9em;
 	margin: 0;	
+	padding: 4px;
 }
 
 div.atomsuggest p.headline
@@ -55,12 +54,9 @@ div.atomsuggest div.result span
 	font-weight: bold;
 }
 
-div.atomsuggest div.divselector, div.atomsuggest div.selected
+div.atomsuggest div.selected
 {
-	padding: 3px;
-	text-align: left;
 	cursor: pointer;
-	width: 100%;
 }
 
 
