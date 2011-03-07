@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xmltojson>
+
+  <options>
+    <!--
+    ENCASE FOR ARRAY
+    text: true|false
+    
+    When true wraps the resulting JSON in [] array braces
+    -->
+    <encaseforarray>false</encaseforarray>
+    
+    <!--
+    FLATTEN SIMPLE ELEMENTS
+    text: true|false
+    
+    Flattens simple elements, child nodes which are unique and have no attributes, into the
+    parrent element. 
+    
+    For example given the following xml:
+    
+      <node>
+        <a>Ottawa</a>
+        <b>New York</b>
+        <c>London</c>
+      </node>
+    
+    When flattenSimpleElements is false the resulting JSON would be:
+    
+      {node:{a:{$:'Ottawa'},b:{$:'New York'},c:{$:'London'}}}
+      
+    When flattenSimpleElements if true the resulting JSON would be:
+      
+      {node:{$a:'Ottawa',$b:'New York',$c:'London'}}
+    
+    Notice the $ since precedes the attribute name.  This is the value
+    assigned to settings\elements\prefix config node.
+    
+    There is also the case of collections that are rendered in json as arrays.
+    Given the following example
+    
+    <root>
+      <option>Canada</option>
+      <option>U.S.</option>
+      <option>Great Britain</option>
+    </root>
+    
+    In JSON this would be rendered as
+    MYSJON=[{root:{option:[{$:"Canada"},{$:"U.S."},{$:"Great Britain"}]}}]
+    
+    Given that the option elements are simple in that they have no attributes
+    or children we could also render the option collection as a simple 
+    JavaScript Array.  This would result in the following JSON:
+    
+    MYSJON=[{root:{option:["Canada","U.S.","Great Britain"]}}]
+    
+    Of course doing so renders the array values as simple strings but they could
+    easily be converted to custom objects if need be at load time.
+    
+    To enforce simple object collections to be rendered as arrays set the
+    flattenSimpleCollectionsToArrays to true
+    
+    -->
+    <flattenSimpleElements>false</flattenSimpleElements>
+    <flattenSimpleCollectionsToArrays>true</flattenSimpleCollectionsToArrays>
+    
+    <!-- 
+    ELEMENT APPEND FOR UNIQUE
+    text: anything
+    
+    Under a specific circutance duplicate object properties could be assigned
+    tothe same object.  Take into consideration the following XML
+      
+      <root id="1234">
+        <id>abcd</id>
+      </root>
+    
+    Under standard naming conventions like BadgerFish you would have the following
+    JSON object
+    
+    JSON = [{root:{id:1234,id:{$:abcd}}[
+    
+    As can be seen id is duplicated.  It would not be natural in this case to move both
+    ID properties into an array since the are not both datatyped the same.  In this case
+    the appendforDuplicate switch can be used to append on a name to the element in order
+    to reduce redundency.
+    
+    For example setting the switch to MYNODE would result in:
+    
+    JSON = [{root:{id:1234,idMYNODE:{$:abcd}}]
+    
+    -->
+    <elementAppendForUnique>Node</elementAppendForUnique>
+
+    <!--
+    DROP ROOT
+    text: true|false
+    
+    When true the root node it dropped from the resulting JSON. Given
+    the following xml:
+    
+      <root>
+        <address street="a" zip="bbb123"/>
+        <phone>999-123-1234</phone>
+      </root>
+      
+    With dropRoot false the JSON would be:
+    
+      {root:{address:{street:'a',zip:'bbb123'}},phone:'999-123-1234'}
+      
+    With dropRoot true the JSON would be:
+      {address:{street:'a',zip:'bbb123'},phone:'999-123-1234'}
+    
+    -->
+    <dropRoot>false</dropRoot>
+  </options>
+  
+  <!--
+  OUTPUT SETTINGS 
+  encase\
+    stringValues: Encase string values in character(s), for example '
+    objectNames:  Encase object names/properties in character(s), for example ' or "
+    
+  attributes\
+    prefix:   Prepend provided string to name of attributes
+    suffix:   Append provided string to name of suffix
+    
+  elements\
+    prefix:   Prepend provided string to name of attributes
+    suffix:   Append provided string to name of suffix
+    
+  -->
+  <settings>
+    <encase>
+      <stringValues>"</stringValues>
+      <objectNames>"</objectNames>
+    </encase>
+    <attributes>
+      <prefix></prefix>
+      <suffix></suffix>
+    </attributes>
+    <elements>
+      <prefix>value</prefix>
+      <suffix></suffix>
+    </elements>
+  </settings>
+  
+  <!--
+  ESCAPING CHARACTERS
+  List of val elements containing from and to elements. Use this section to add in conversion
+  strings you want applied to string elements/attributes
+  -->
+  <escape>
+    <item>
+      <from>'</from>
+      <to>'</to>
+	</item>
+   <item>
+      <from>"</from>
+      <to>\"</to>
+    </item>
+
+  </escape>
+  
+  <!-- 
+    DATATYPE CASTING
+    These are string value attributes/elements that you do not want encased or prefixed or suffixed.
+    In other words treat them as pointers to other javascript objects or use them to explicitly
+    define the datatypes the value should be rendered to.
+    
+    The syntax for the pointer elements is
+    <pointer type="[native|string|date|datetime|boolean|number]" match="[exact|any]">xpath expresssion</pointer>
+    
+    For example if you had the following xml
+    <root>
+      <test myFunction="function(){alert('hello world')}"/>
+    </root>
+    
+    Create the pointer as
+    <pointer type="native" match="exact">/root/test/@myFunction</pointer>
+    
+    You JSON would then have
+    {root:{test:{myFunction:function(){alert('hello world')}}}}
+    
+    Note, be carefull when using match of 'any' as this may result in unexpected
+    results if you have elements/attributes with similar names or paths
+	
+  <pointers>
+    <pointer type="native" match="exact">/root/note/pricing/data</pointer>
+    <pointer type="string" match="any">@value</pointer>
+    <pointer type="date" match="any">@dtm</pointer>
+  </pointers>
+  
+  -->
+  
+</xmltojson>
