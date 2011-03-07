@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<title>AtomSuggest with TermSciences</title>
+		<meta http-equiv="Content-Language" content="en">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" type="text/css" href="../../atomsuggest.css" />
+		<link rel="stylesheet" type="text/css" href="../../atomsuggest.grey.css" />
+		<style type="text/css">
+			li { display:inline; }
+		</style>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+		<script type="text/javascript" src="../../atomsuggest.js"></script>
+
+		<script type="text/javascript">
+			$(document).ready(function(){
+					var options1 = {
+						"url": "../../proxy/termsciences.php",				
+						"widthFactor": 1.5,
+						"showInfos" : 	{ "identifier": true, "updated": true, "content": true, "result" : true },				
+						"paramValue": "query", 
+						"extraParams":  { "ws": "search", "alt": "json", "lang": function() { return $("#lng").val() }, "step": 8 },
+						onSelect: function(entry) { 
+						$('#searchform').append('<input type="text" name="idt" value="'+escape(entry.id.value.substring(17))+'"/>').attr('action', 'http://www.termsciences.fr/services/urls/selection/').submit();
+						}
+					}
+					$("#searchform input[name='qry1']").atomsuggest(options1);
+
+					var options2 = {
+						"url": "../../proxy/termsciences.php",								
+						"paramValue": "query", 
+						"extraParams":  { "ws": "search", "alt": "json", "lang": function() { return $("#lng").val() } },
+						onSelect: function(entry) { }
+					}
+
+					$("#qry2").atomsuggest(options2);
+
+					var options3 = {
+						"url": "../../proxy/termsciences.php",				
+						"widthFactor": 3,
+						"showInfos" : 	{ "content": true, "result" : true },				
+						"paramValue": "query", 
+						"extraParams":  { "ws": "search", "alt": "json", "lang": function() { return $("#lng").val() } },
+						onSelect: function(entry) { }
+					}
+
+					$("#searchform input[name='qry3']").atomsuggest(options3);
+			});
+		</script>
+	</head>
+	<body>
+		<h1>AtomSuggest with <a href="http://www.termsciences.fr">TermSciences</a></h1>
+		<form id="searchform" name="searchform" method="get" 
+			action="http://www.termsciences.fr/services/urls/recherche/">
+			<ul>
+				<li> 
+				Exemple 1 : 
+					<input name="qry1" id="qry1" type="text"/>
+				</li>
+				<li> 
+				Exemple 2 : 
+					<input name="qry2" id="qry2" type="text"/> 
+				</li>
+				<li>
+				Exemple 3 : 
+					<input name="qry3" id="qry3" type="text"/> 
+				</li>
+				<li> 
+				Langue :
+					<select id="lng" name="lng">
+						<option value="fr" selected="selected"> fr  </option>
+						<option value="en"> en </option>
+						<option value="es"> es </option>
+						<option value="de"> de </option>
+					</select>
+				</li>
+			</ul>    
+		</form>
+	</body>
+</html>

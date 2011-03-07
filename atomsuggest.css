@@ -1,0 +1,64 @@
+div.atomsuggest
+{
+	position: absolute;
+	font-size: 0.7em; 
+	word-wrap: break-word;
+	padding: 0px;
+	margin: 0px;
+}
+
+div.atomsuggest div.hentry
+{
+	display: block; 
+	overflow: hidden; 
+	padding: 0px;
+	margin: 0px;
+	text-align: left;
+}
+
+div.atomsuggest p
+{
+	font-size: 0.9em;
+	margin: 0;	
+	padding: 4px;
+}
+
+div.atomsuggest p.headline
+{
+	font-size: 1em;
+	text-decoration: underline;
+	font-weight: bold;
+}
+
+div.atomsuggest p.identifier
+{
+	font-size: 1em;
+	font-weight: bold;
+}
+
+div.atomsuggest p.updated
+{
+	font-style:italic;
+}
+
+div.atomsuggest div.result
+{
+	border-top: #7D8182 1px solid;
+	height: 20px;
+	text-align: center;
+	padding: 2px;
+}
+
+div.atomsuggest div.result span
+{
+	font-weight: bold;
+}
+
+div.atomsuggest div.selected
+{
+	cursor: pointer;
+}
+
+
+
+

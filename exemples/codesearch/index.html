@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<title>AtomSuggest with Google Code Search</title>
+		<meta http-equiv="Content-Language" content="en">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" type="text/css" href="../../atomsuggest.css" />
+		<link rel="stylesheet" type="text/css" href="../../atomsuggest.grey.css" />
+		<style type="text/css">
+			li { display:inline; }
+			ul { padding-left:0px; }
+		</style>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+		<script type="text/javascript" src="../../atomsuggest.js"></script>
+
+		<script type="text/javascript">
+			$(document).ready(function(){
+					var options1 = {
+						"url": "../../proxy/google.php",				
+						"widthFactor": 1.5,
+						"showInfos" : 	{ "identifier": false, "updated": false, "content": true, "result" : true },				
+						"paramValue": "q", 
+						"extraParams":  { "ws": "codesearch", "alt": "atom", "max-results" : "8"},
+						onSelect: function(entry) { 
+								$(location).attr('href', entry.id.value); 
+						}
+				  }
+					$("#f input[name='qry1']").atomsuggest(options1);
+			});
+		</script>
+	</head>
+	<body>
+			<h1>AtomSuggest with <a href="http://www.google.com/codesearch">Google Code Search</a></h1>
+
+		<form id="f" method="get" 
+			action="#">
+			<ul>
+				<li> 
+				Query : 
+					<input name="qry1" id="qry1" type="text"/>
+				</li>
+				<li> 
+				Language:
+					<select id="lng" name="lng">
+						<option value="fr" selected="selected"> fr  </option>
+						<option value="en"> en </option>
+						<option value="es"> es </option>
+						<option value="de"> de </option>
+					</select>
+				</li>
+			</ul>    
+	</form>
+	<p>
+	Example : <tt>
+			malloc
+	</tt>
+  </p>
+	</body>
+</html>
