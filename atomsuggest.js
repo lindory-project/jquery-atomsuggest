@@ -134,8 +134,8 @@
 			.addClass('feed atomsuggest')
 			.css({
 					zIndex: "1",
-					top: $(_AS_inputField).offset().top +$(_AS_inputField).height()+7+"px",
-					left: $(_AS_inputField).offset().left +"px" 
+					top: $(_AS_inputField).offsetTop + $(_AS_inputField).height() + 7 + "px",
+					left: $(_AS_inputField).offsetLeft + "px" 
 			})
 			.width(function(){
 				if (_AS_options.widthFactor)
