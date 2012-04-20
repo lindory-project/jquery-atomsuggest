@@ -29,48 +29,48 @@
 				AtomSuggest
 			</h1>
 			<p>
-				Plugin Jquery d'aide à la saisie à partir d'un flux ATOM/OpenSearch
+				Plugin Jquery d'aide ï¿½ la saisie ï¿½ partir d'un flux ATOM/OpenSearch
 			</p>
 			<h2> 
-				Téléchargement 
+				Tï¿½lï¿½chargement 
 			</h2>
 			<p>
-				Le plugin est disponible sous forme d'une archive compressée  
-				<a href="http://github.com/touv/atomsuggest/zipball/master"><img 
+				Le plugin est disponible sous forme d'une archive compressï¿½e  
+				<a href="http://github.com/lindory-project/jquery-atomsuggest/zipball/master"><img 
 						id="zip"
 						alt="Download Zip" src="http://github.com/images/modules/download/zip.png"
 						/>
 				</a>.
 				<br/>
 				<br/>
-				La librairie Javascript JQuery est téléchargeable sur <a href="http://jquery.com">le site officiel de JQuery</a>.						
+				La librairie Javascript JQuery est tï¿½lï¿½chargeable sur <a href="http://jquery.com">le site officiel de JQuery</a>.						
 			</p>
 			<br style="clear:both;"/>
 			<h2>
 				Installation
 			</h2>
 			<h3>
-				Première étape
+				Premiï¿½re ï¿½tape
 			</h3>
 			<p>
-				Inclure le fichier <tt>jquery.js</tt> dans l'élément "head" de votre page Web, suivit par le fichier <tt>atomsuggest.js</tt>.
+				Inclure le fichier <tt>jquery.js</tt> dans l'ï¿½lï¿½ment "head" de votre page Web, suivit par le fichier <tt>atomsuggest.js</tt>.
 			</p>
 			<pre class="brush:html">
 				&lt;script type="text/javascript" src="jquery.js"&gt;&lt;/script&gt;
 				&lt;script type="text/javascript" src="atomsuggest.js"&gt;&lt;/script&gt;
 			</pre>
 			<h3>
-				Deuxième étape
+				Deuxiï¿½me ï¿½tape
 			</h3>
 			<p>
 				Inclure les fichiers CSS dans votre page Web. Il y en a deux :
 			</p>
 			<ul>
 				<li>
-					<tt>atomsuggest.grey.css</tt> qui gère les couleurs du plugin. <strong>Ce fichier peut être modifié à souhait.</strong>
+					<tt>atomsuggest.grey.css</tt> qui gï¿½re les couleurs du plugin. <strong>Ce fichier peut ï¿½tre modifiï¿½ ï¿½ souhait.</strong>
 				</li>
 				<li>
-					<tt>atomsuggest.css</tt> qui gère toute la structure du plugin (écriture, taille, dimmensions,	marges, etc.).
+					<tt>atomsuggest.css</tt> qui gï¿½re toute la structure du plugin (ï¿½criture, taille, dimmensions,	marges, etc.).
 				</li>
 			</ul>
 			<pre class="brush:html">
@@ -78,10 +78,10 @@
 				&lt;link rel="stylesheet" type="text/css" href="style/atomsuggest.grey.css" /&gt;
 			</pre>
 			<h3>
-				Troisième étape
+				Troisiï¿½me ï¿½tape
 			</h3>
 			<p>
-				Paramètrer le plugin et le brancher le plugin sur le champ à auto-compléter. 
+				Paramï¿½trer le plugin et le brancher le plugin sur le champ ï¿½ auto-complï¿½ter. 
 			</p>
 			<pre class="brush:js">
 				$(document).ready(function() {
@@ -99,13 +99,13 @@
 					}
 			</pre>
 			<h2>
-				Paramètres 
+				Paramï¿½tres 
 			</h2>
 			<h3>
 				Format
 			</h3>
 			<p>
-				Le flux Atom/Openseach doit être "Jsonifié" façon Google. Google propose cette Jsonification via son protocole GData. (cf .
+				Le flux Atom/Openseach doit ï¿½tre "Jsonifiï¿½" faï¿½on Google. Google propose cette Jsonification via son protocole GData. (cf .
 				<a href="http://code.google.com/apis/gdata/docs/json.html">Using JSON in the Google Data Protocol</a>).<br/>
 				Pour les flux Atom non disponibles au format Json, il faut transformer le XML en JSON avec cette feuille de style XSL : <a href="http://github.com/touv/atomsuggest/raw/master/xsl/xml2json.xsl">xml2json</a>.
 			</p>
@@ -134,8 +134,8 @@
 						"widthFactor"
 					</td>
 					<td>
-						Multiplicateur de la largeur de l'élément regroupant les suggestions. Par défaut la largeur
-						correspond à la largeur de l'input concerné, le multiplicateur vaut donc 1.
+						Multiplicateur de la largeur de l'ï¿½lï¿½ment regroupant les suggestions. Par dï¿½faut la largeur
+						correspond ï¿½ la largeur de l'input concernï¿½, le multiplicateur vaut donc 1.
 					</td>
 				</tr>
 				<tr>
@@ -143,10 +143,10 @@
 						"showInfos"
 					</td>
 					<td>
-						Permet de configurer des éléments supplémentaires à afficher ( <b>"identifier"</b>: identifiant
-						de chaque terme; <b>"updated"</b>: date de dernière modification; <b>"content"</b>: description
-						du terme; <b>"result"</b>: nombre de résultat répondant à la saisie). Par défaut ces
-						informations ne sont pas affichées.
+						Permet de configurer des ï¿½lï¿½ments supplï¿½mentaires ï¿½ afficher ( <b>"identifier"</b>: identifiant
+						de chaque terme; <b>"updated"</b>: date de derniï¿½re modification; <b>"content"</b>: description
+						du terme; <b>"result"</b>: nombre de rï¿½sultat rï¿½pondant ï¿½ la saisie). Par dï¿½faut ces
+						informations ne sont pas affichï¿½es.
 					</td>
 				</tr>
 				<tr>
@@ -154,8 +154,8 @@
 						"paramValue"
 					</td>
 					<td>
-						Nom du paramètre qui contiendra la valeur saisie (dans l'exemple, <b>"query"</b> correspond au
-						nom du paramètre du web service utilisé permettant de récupérer les données répondant à la
+						Nom du paramï¿½tre qui contiendra la valeur saisie (dans l'exemple, <b>"query"</b> correspond au
+						nom du paramï¿½tre du web service utilisï¿½ permettant de rï¿½cupï¿½rer les donnï¿½es rï¿½pondant ï¿½ la
 						saisie).
 					</td>
 				</tr>
@@ -164,8 +164,8 @@
 						"extraParams"
 					</td>
 					<td>
-						Ses valeurs correspondent aux paramètres concernant les web services alimentants le plugin. A
-						gauche, le nom du paramètre et à droite, sa valeur.
+						Ses valeurs correspondent aux paramï¿½tres concernant les web services alimentants le plugin. A
+						gauche, le nom du paramï¿½tre et ï¿½ droite, sa valeur.
 					</td>
 				</tr>
 				<tr>
@@ -173,8 +173,8 @@
 						"onSelect"
 					</td>
 					<td>
-						CallBack sur l'élément sélectionné. Elle permet notamment de poursuivre des traitements sur
-						l'élément sélectionné.
+						CallBack sur l'ï¿½lï¿½ment sï¿½lectionnï¿½. Elle permet notamment de poursuivre des traitements sur
+						l'ï¿½lï¿½ment sï¿½lectionnï¿½.
 					</td>
 				</tr>
 				<tr>
@@ -182,7 +182,7 @@
 						"onRequest"
 					</td>
 					<td>
-						CallBack sur les caractères saisies. Elle permet de modifier la requete juste avant d'envoyé la requete au serveur.
+						CallBack sur les caractï¿½res saisies. Elle permet de modifier la requete juste avant d'envoyï¿½ la requete au serveur.
 					</td>
 				</tr>
 			</table>
@@ -190,16 +190,16 @@
 				Flux externes
 			</h2>
 			<p>
-				Pour de bonne performance le plugin utilise des appels AJAX "classiques" donc obligatoirement vers le site qui a envoyé la page HTML.
-				Pour brancher le script sur flux externes à la page, il est nécessaire de passer par un proxy. <br/><br/>
-				Un exemple de proxy pour Google écrit en PHP 
-				est disponible dans ce répertoire : <a href="http://github.com/touv/atomsuggest/tree/master/proxy">http://github.com/touv/atomsuggest/tree/master/proxy/</a>
+				Pour de bonne performance le plugin utilise des appels AJAX "classiques" donc obligatoirement vers le site qui a envoyï¿½ la page HTML.
+				Pour brancher le script sur flux externes ï¿½ la page, il est nï¿½cessaire de passer par un proxy. <br/><br/>
+				Un exemple de proxy pour Google ï¿½crit en PHP 
+				est disponible dans ce rï¿½pertoire : <a href="http://github.com/touv/atomsuggest/tree/master/proxy">http://github.com/touv/atomsuggest/tree/master/proxy/</a>
 			</p>
 			<h2>
 				Exemples
 			</h2>
 			<p>
-				L'utilisation est très simple, une fois votre plugin branché sur votre champ texte, il suffit de saisir
+				L'utilisation est trï¿½s simple, une fois votre plugin branchï¿½ sur votre champ texte, il suffit de saisir
 				des informations et vous verrez la liste des suggestions apparaitre automatiquement en fonction de
 				votre saisie. 
 			</p>
