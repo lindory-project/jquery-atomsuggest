@@ -1,7 +1,7 @@
 ﻿//
 // jquery.atomsuggest.js, licensed under the MIT license.
 //
-// (c) 2010 INIST-CNRS, Nicolas Thouvenin <nicolas.thouvenin@inist.fr>
+// Nicolas Thouvenin <nthouvenin@gmail.com>
 //
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
