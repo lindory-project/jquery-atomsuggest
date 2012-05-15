@@ -116,14 +116,17 @@
 
 
 			var _AS_options      = $.extend( {
-					"url": "",
-					"widthFactor": 1,
-					"showInfos": {"identifier": false, "updated": false, "content": false, "result": false},
-					"paramValue": "",
-					"extramParam": {"ws": "", "alt": "", "action": "", "lang": "fr"},
-					"triggerLength" : 3,
-					"onSelect" : null,
-					"onRequest" : null
+                    "url": "",
+                    "widthFactor": 1,
+                    "showInfos": {"identifier": false, "updated": false, "content": false, "result": false},
+                    "paramValue": "",
+                    "extraParams": {"ws": "", "alt": "", "action": "", "lang": "fr"},
+                    "triggerLength" : 3,
+                    "onSelect" : null,
+                    "onRequest" : null,
+                    "user": '',
+                    "passw": '',
+                    "basic": ''
 				}, options);
 			var _AS_inputField   = $(this).attr("autocomplete", "off");
 			var _AS_lastCall;
@@ -144,6 +147,13 @@
 					return $(_AS_inputField).outerWidth()+"px";
 			})
 			.appendTo(_AS_inputField.parent());
+
+            //Easter Egg : on peut directement mettre du basic
+            //Si y'a pas de basic
+            if (_AS_options.basic == '') {
+                //Encode en basic64 du login:password
+                _AS_options.basic = $.base64Encode(_AS_options.user + ":" + _AS_options.passw);
+            }
 
 
 			if($.browser.opera) {
@@ -209,7 +219,16 @@
 							_AS_lastCall.abort();
 						}
 
-						_AS_lastCall = $.getJSON( uget(_AS_options.url), parameters, function (jsonResponse) {
+						_AS_lastCall = $.ajax({
+							url: uget(_AS_options.url),
+							dataType: 'json',
+							method: 'GET',
+							crossDomain: true,
+                            contentType:"application/json",
+							beforeSend :  function(req) {
+								req.setRequestHeader('Authorization', "Basic " + _AS_options.basic);
+							},
+							success : function (jsonResponse) {
 								_AS_lastResponse = jsonResponse;
 								while($(" > *", _AS_context).length>0) $(_AS_context).empty();
 								$(_AS_context).show();
@@ -250,9 +269,12 @@
 
 								//highlight pour les mots commencant par une majuscule
 								highlight(_AS_currentValue.substring(0,1).toUpperCase()+_AS_currentValue.substring(1));
-						});
-						$(_AS_inputField).focus()	;
-					}
+						},
+                        data: parameters
+					});
+
+					$(_AS_inputField).focus();
+				}
 			});
 
 			// recalcule la taille des suggestions
